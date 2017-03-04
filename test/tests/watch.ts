@@ -49,5 +49,23 @@ export default function () {
             await a.$nextTick();
             expect(result).to.eql("d,hello,");
         });
+
+        it("Is passed the property name", async () => {
+            let result = "";
+            @Component({
+                template: `<b>{{test}}</b>`,
+            }) class A extends Vue {
+                @Data public test: string = "hello";
+
+                @Watch("test")
+                protected testChanged(value: string, oldValue: string, name: string) {
+                    result = name;
+                }
+            };
+            const a = new A().$mount(document.createElement("div"));
+            a.test = "d";
+            await a.$nextTick();
+            expect(result).to.eql("test");
+        });
     });
 }
