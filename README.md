@@ -1,4 +1,4 @@
-# vuety
+# Vuety
 TypeScript decorators for [Vue.js](https://vuejs.org/) 2.0. 
 
 A set of TypeScript decorators allowing you to write your Vue.js components in a type-safe and more object-oriented manner.
@@ -11,12 +11,12 @@ TODO: Publish to npm
 
 ## Usage
 
-1. [Component](#component)
-2. [Lifecycle](#lifecycle)
-3. [Prop](#prop)
-4. [Data](#data)
-5. [Watch](#watch)
-6. [Render](#render)
+- [Component](#component)
+- [Lifecycle](#lifecycle)
+- [Prop](#prop)
+- [Data](#data)
+- [Watch](#watch)
+- [Render](#render)
 
 ### Component
 In order to create a new component you should create a class definition and decorate it with the `@Component` decorator.  
