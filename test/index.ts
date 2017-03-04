@@ -1,0 +1,12 @@
+import component from "./tests/component";
+import data from "./tests/data";
+import lifecycle from "./tests/lifecycle";
+import prop from "./tests/prop";
+import render from "./tests/render";
+import watch from "./tests/watch";
+component();
+data();
+lifecycle();
+prop();
+render();
+watch();

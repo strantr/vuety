@@ -1,3 +1,6 @@
+dist
+vuety-*.tgz
+
 # Logs
 logs
 *.log
