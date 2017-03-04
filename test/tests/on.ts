@@ -46,18 +46,28 @@ export default function () {
             new A();
             expect(result).to.eq(1);
         });
-        it("Can handle events on target component by name", () => {
+        it("Can handle events on target component by name", async () => {
             let result = 0;
+
             @Component({
                 created() {
                     this.$root.$emit("eventName");
-                }
+                },
+                template: "<div/>"
             }) class A extends Vue {
                 @On(v => v.$root, "eventName") protected test() {
                     result++;
                 }
             }
-            new A();
+
+            @Component({
+                components: {
+                    "child": A
+                },
+                template: "<child/>"
+            }) class Root extends Vue {
+            }
+            await new Root().$mount(document.createElement("div")).$nextTick();
             expect(result).to.eq(1);
         });
         it("Handlers are bound to the instance", () => {
