@@ -1,5 +1,6 @@
 dist
 vuety-*.tgz
+test/bundle.js
 
 # Logs
 logs
