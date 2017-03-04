@@ -23,7 +23,7 @@ In order to create a new component you should create a class definition and deco
 This class should extend the Vue object.  
 
 **Example:**
-```
+```typescript
 import { Component } from "vuety";
 import * as Vue from "vue";
 @Component({...options}) 
@@ -36,7 +36,7 @@ class MyComponent extends Vue {
 Vue provides multiple [lifecycle events](https://vuejs.org/v2/guide/instance.html#Instance-Lifecycle-Hooks). You can utilise these by decorating a method with `@Lifecycle`. The method must be named the same as one of the lifecycle hooks.
 
 **Example:**
-```
+```typescript
 @Component({...options}) 
 class MyComponent extends Vue {
     @Lifecycle protected created() { // Code to run on created }
@@ -51,7 +51,7 @@ Default values will either be picked up by creating an instance of the component
 *Note: It is recommended to use the property option default value method as the inspection technique causes a one-time performance hit as an instance of the component must be created to determine the default value of the property which is then cached.*
 
 **Example:**
-```
+```typescript
 @Component({...options}) 
 class MyComponent extends Vue {
     // Value from option
@@ -73,7 +73,7 @@ If passing the default value as an option it must be provided via a factory func
 *Note: It is recommended to use the option default value method as the inspection technique causes a one-time performance hit as an instance of the component must be created to determine the default value is then cached.*
 
 **Example:**
-```
+```typescript
 @Component({...options}) 
 class MyComponent extends Vue {
     // Value from factory
@@ -89,7 +89,7 @@ Watches are created using the `@Watch` decorator. The decorator accepts a string
 The watch function is sent the newValue, oldValue and the name of the watched property.
 
 **Example:**
-```
+```typescript
 @Component({...options}) 
 class MyComponent extends Vue {
     @Data public field: string;
@@ -105,7 +105,7 @@ class MyComponent extends Vue {
 You can specify the render function by creating a method with the name "render" and decorating it with `@Render`.  
 This function must accept an argument of type `Vue.CreateElement` and return a `Vue.VNode`.
 **Example:**
-```
+```typescript
 @Component({...options}) 
 class MyComponent extends Vue {
     @Render protected render(create: Vue.CreateElement): Vue.VNode {
