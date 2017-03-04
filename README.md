@@ -98,8 +98,18 @@ class MyComponent extends Vue {
     protected fieldChanged(newValue: string, oldValue: string, watchee: keyof MyComponent) {
         //watchee === "field"
     }
-
 }
 ````
 
-
+### Render
+You can specify the render function by creating a method with the name "render" and decorating it with `@Render`.  
+This function must accept an argument of type `Vue.CreateElement` and return a `Vue.VNode`.
+**Example:**
+```
+@Component({...options}) 
+class MyComponent extends Vue {
+    @Render protected render(create: Vue.CreateElement): Vue.VNode {
+        return create("div", "test");
+    }
+}
+````
