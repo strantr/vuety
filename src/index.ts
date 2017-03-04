@@ -5,3 +5,4 @@ export * from "./lifecycle";
 export * from "./prop";
 export * from "./render";
 export * from "./watch";
+export * from "./on";
