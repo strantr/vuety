@@ -16,6 +16,21 @@ export default function () {
             expect(new B().$options).to.have.property("beforeCreate");
         });
 
+        it("Should allow multiple via options and decorators handlers", () => {
+            let res = "";
+            @Component({
+                beforeCreate() {
+                    res += "1";
+                }
+            }) class B extends Vue {
+                @Lifecycle protected beforeCreate() {
+                    res += "2";
+                }
+            };
+            new B();
+            expect(res).to.eql("12");
+        });
+
         it("Should be called via lifecycle events", () => {
             @Component({
                 template: "<div/>"

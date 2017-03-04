@@ -13,7 +13,13 @@ export function Lifecycle(): DecoratorFactory<LifecycleName>
 export function Lifecycle(this: Vue): DecoratorFactory<LifecycleName> | undefined {
     function lifecycle(target: IVuety, propertyKey: LifecycleName, descriptor: PropertyDescriptor) {
         Vuety("Lifecycle", target)(v => {
-            v.options[propertyKey] = descriptor.value;
+            if (!v.options[propertyKey]) {
+                v.options[propertyKey] = [descriptor.value] as any;
+            } else if (v.options[propertyKey] instanceof Array) {
+                (v.options[propertyKey] as any).push(descriptor.value);
+            } else {
+                v.options[propertyKey] = [v.options[propertyKey], descriptor.value] as any;
+            }
         });
     }
     if (arguments.length === 0) {
