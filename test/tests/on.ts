@@ -32,18 +32,28 @@ export default function () {
             new A();
             expect(result).to.eq(1);
         });
-        it("Can handle events on target component by naming convention", () => {
+        it("Can handle events on target component by naming convention", async () => {
             let result = 0;
+
             @Component({
                 created() {
-                    this.$emit("eventName");
-                }
+                    this.$root.$emit("eventName");
+                },
+                template: "<div/>"
             }) class A extends Vue {
-                @On(v => v) protected eventName() {
+                @On(v => v.$root) protected eventName() {
                     result++;
                 }
             }
-            new A();
+
+            @Component({
+                components: {
+                    "child": A
+                },
+                template: "<child/>"
+            }) class Root extends Vue {
+            }
+            await new Root().$mount(document.createElement("div")).$nextTick();
             expect(result).to.eq(1);
         });
         it("Can handle events on target component by name", async () => {
