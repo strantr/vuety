@@ -19,6 +19,7 @@ TODO: Publish to npm
 - [Render](#render)
 - [On](#on)
 - [Emit](#emit)
+- [Custom Decorators](#custom-decorators)
 
 ### Component
 In order to create a new component you should create a class definition and decorate it with the `@Component` decorator.  
@@ -169,3 +170,24 @@ class MyComponent extends Vue {
     }
 }
 ````
+
+### Custom Decorators
+You can use the Vutey method to create custom decorators to perform logic upon the creation of new components.
+```
+import { Vuety } from "vuety";
+```
+You should create a [standard decorator](https://www.typescriptlang.org/docs/handbook/decorators.html), either as a factory or function (or both) and from within you
+function call:
+```
+// Target being the decorators target
+Vuety("Unique_id_for_decorator", target)((v : VuetyCallbackData) => {
+  // Decorator logic
+});
+```
+The `VuetyCallbackData` object provides a few useful members:
+- `getDefault` - Gets the default value of the specified member
+- `options` - The Vue [component options object](https://vuejs.org/v2/api/#Options-Data) that can be used to extend the object
+- `proto` - The protoype of the Vue instance being created
+- `storeData` - Used to extend the Vue data object with an additional element, must be passed as a factory.
+
+All Vutey decorators other than `@Component` are written using the exposed `Vutey` function, for better understanding of how to implement your own it is best to simpy look at the source of one of the standard decorators.
