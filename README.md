@@ -17,6 +17,8 @@ TODO: Publish to npm
 - [Data](#data)
 - [Watch](#watch)
 - [Render](#render)
+- [On](#on)
+- [Emit](#emit)
 
 ### Component
 In order to create a new component you should create a class definition and decorate it with the `@Component` decorator.  
