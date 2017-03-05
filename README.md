@@ -103,13 +103,67 @@ class MyComponent extends Vue {
 
 ### Render
 You can specify the render function by creating a method with the name "render" and decorating it with `@Render`.  
-This function must accept an argument of type `Vue.CreateElement` and return a `Vue.VNode`.
+This function must accept an argument of type `Vue.CreateElement` and return a `Vue.VNode`.  
+
 **Example:**
 ```typescript
 @Component({...options}) 
 class MyComponent extends Vue {
     @Render protected render(create: Vue.CreateElement): Vue.VNode {
         return create("div", "test");
+    }
+}
+````
+
+### On
+You can specify an event handler using the `@On` decorator. This will be raised whenever an event is emitted.  
+You can either specify the name of the event in the decorators constructor or it will use the name of the handler method.  
+The first parameter of the decorator function may also be a target selector being passed the current instance and returning a Vue component (e.g. $parent, $root, $refs["child"])  
+
+**Example:**
+```typescript
+@Component({...options}) 
+class MyComponent extends Vue {
+    @On protected eventName(e : Event) {
+        // Handle event "eventName"
+    }
+    @On("event2") protected handler(name: string) {
+        // Handle "event2 "
+    }
+    @On(v => v.$parent) protected parentEvent() {
+        // Handle "parentEvent" on the parent component
+    }
+    @On(v => v.$root, "rootEvent") protected handler2() {
+        // Handle "rootEvent" on the root component
+    }
+}
+````
+
+### Emit
+A method that raises an event can be created by adding the `@Emit` decorator to a function.  
+The body of the function will be executed BEFORE the event is raised. If the body returns a callback function (e.g. `return ()=>{...}`) this will be called after the event is raised.  
+You can either specify the name of the event in the decorators constructor or it will use the name of the method.  
+The first parameter of the decorator function may also be a target selector being passed the current instance and returning a Vue component (e.g. $parent, $root, $refs["child"])  
+
+**Example:**
+```typescript
+@Component({...options}) 
+class MyComponent extends Vue {
+    @Emit protected eventName(e : Event) {
+        // Raise event "eventName"
+    }
+    @Emit("event2") protected handler(name: string) {
+        // Raise "event2 "
+    }
+    @Emit(v => v.$parent) protected parentEvent() {
+        // Raise "parentEvent" on the parent component
+    }
+    @Emit(v => v.$root, "rootEvent") protected handler2() {
+        // Raise "rootEvent" on the root component
+    }
+    @Emit protected event2() {
+        console.log("before event is emitted");
+        return () => console.log("after event is emitted");
     }
 }
 ````
