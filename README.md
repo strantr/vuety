@@ -170,7 +170,7 @@ class MyComponent extends Vue {
 ````
 
 ### Custom Decorators
-You can use the Vutey method to create custom decorators to perform logic upon the creation of new components.
+You can use the Vuety method to create custom decorators to perform logic upon the creation of new components.
 ```
 import { Vuety } from "vuety";
 ```
@@ -188,4 +188,4 @@ The `VuetyCallbackData` object provides a few useful members:
 - `proto` - The protoype of the Vue instance being created
 - `storeData` - Used to extend the Vue data object with an additional element, must be passed as a factory.
 
-All Vutey decorators other than `@Component` are written using the exposed `Vutey` function, for better understanding of how to implement your own it is best to simpy look at the source of one of the standard decorators.
+All Vuety decorators other than `@Component` are written using the exposed `Vuety` function, for better understanding of how to implement your own it is best to simpy look at the source of one of the standard decorators.
