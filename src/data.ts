@@ -2,7 +2,7 @@ import * as Vue from "vue";
 import { IVuety, Vuety, DecoratorFactory } from "./core";
 
 export function Data(target: Vue, propertyKey: string): any
-export function Data(factory: () => any): DecoratorFactory<string>;
+export function Data(factory?: () => any): DecoratorFactory<string>;
 export function Data(this: Vue): DecoratorFactory<string> | undefined {
     function data(factory: () => any | undefined, target: IVuety, propertyKey: string) {
         Vuety("Data", target)(v => {
@@ -14,7 +14,7 @@ export function Data(this: Vue): DecoratorFactory<string> | undefined {
         });
     }
 
-    if (arguments.length === 1) {
+    if (arguments.length < 3) {
         const args = arguments;
         return function (this: IVuety) {
             data.apply(this, [args[0], ...Array.from(arguments)]);

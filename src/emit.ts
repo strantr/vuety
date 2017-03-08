@@ -2,7 +2,7 @@ import * as Vue from "vue";
 import { IVuety, DecoratorFactory } from "./core";
 
 export function Emit(target: Vue, propertyKey: string): any
-export function Emit(eventName: string): DecoratorFactory<string>;
+export function Emit(eventName?: string): DecoratorFactory<string>;
 export function Emit(target: (v: Vue) => Vue, eventName?: string): DecoratorFactory<string>;
 export function Emit(this: Vue): DecoratorFactory<string> | undefined {
     function emit(targetOrEventName: string | ((v: Vue) => Vue) | undefined, eventName: string, target: IVuety, propertyKey: string, descriptor: PropertyDescriptor) {

@@ -22,6 +22,15 @@ export default function () {
             });
         });
 
+        it("Populates options via Prop factory", () => {
+            @Component() class A extends Vue {
+                @Prop() public test: string;
+            }
+            expect(new A()["$props"]).to.eql({
+                test: undefined
+            });
+        });
+
         it("Allows default value via PropOpts", () => {
             @Component() class A extends Vue {
                 @Prop({ default: "a" })

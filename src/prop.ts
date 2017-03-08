@@ -3,7 +3,7 @@ import { IVuety, Vuety, DecoratorFactory } from "./core";
 
 
 export function Prop(target: Vue, propertyKey: string): any
-export function Prop(options: Vue.PropOptions): DecoratorFactory<string>;
+export function Prop(options?: Vue.PropOptions): DecoratorFactory<string>;
 export function Prop(this: Vue): DecoratorFactory<string> | undefined {
     function prop(options: Vue.PropOptions, target: IVuety, propertyKey: string) {
         Vuety("Prop", target)(v => {
@@ -24,7 +24,7 @@ export function Prop(this: Vue): DecoratorFactory<string> | undefined {
         });
     }
 
-    if (arguments.length === 1) {
+    if (arguments.length < 3) {
         const args = arguments;
         return function (this: IVuety) {
             prop.apply(this, [args[0], ...Array.from(arguments)]);

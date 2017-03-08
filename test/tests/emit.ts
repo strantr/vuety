@@ -141,7 +141,7 @@ export default function () {
         it("Can pass arguments", () => {
             let result = "";
             @Component() class A extends Vue {
-                @Emit protected testEvent(v: string) { }
+                @Emit() protected testEvent(v: string) { }
 
                 @Lifecycle protected beforeCreate() {
                     this.$on("testEvent", (v: string) => {

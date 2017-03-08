@@ -106,7 +106,7 @@ export default function () {
                     this.$emit("eventName", "hello", { complex: "world" });
                 }
             }) class A extends Vue {
-                @On protected eventName(arg1: string, arg2: {}) {
+                @On() protected eventName(arg1: string, arg2: {}) {
                     result = arg1 + " " + arg2["complex"];
                 }
             }

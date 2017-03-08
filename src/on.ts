@@ -2,7 +2,7 @@ import * as Vue from "vue";
 import { IVuety, Vuety, DecoratorFactory } from "./core";
 
 export function On(target: Vue, propertyKey: string): any
-export function On(eventName: string): DecoratorFactory<string>;
+export function On(eventName?: string): DecoratorFactory<string>;
 export function On(target: (v: Vue) => Vue, eventName?: string): DecoratorFactory<string>;
 export function On(this: Vue): DecoratorFactory<string> | undefined {
     function on(targetOrEventName: string | ((v: Vue) => Vue) | undefined, eventName: string, target: IVuety, propertyKey: string, descriptor: PropertyDescriptor) {

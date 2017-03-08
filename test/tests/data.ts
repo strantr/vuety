@@ -20,6 +20,15 @@ export default function () {
             });
         });
 
+        it("Populates options via empty factory", () => {
+            @Component() class A extends Vue {
+                @Data() public test: string;
+            }
+            expect(new A()["$data"]).to.eql({
+                test: undefined
+            });
+        });
+
         it("Allows default value via factory", () => {
             @Component() class A extends Vue {
                 @Data(() => "a")

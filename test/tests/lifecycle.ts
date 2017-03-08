@@ -37,7 +37,7 @@ export default function () {
             }) class A extends Vue {
                 public field: string;
 
-                @Lifecycle protected beforeCreate() {
+                @Lifecycle() protected beforeCreate() {
                     this.field = (this.field || "") + "a";
                 }
                 @Lifecycle protected created() {
