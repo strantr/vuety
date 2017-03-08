@@ -1,6 +1,6 @@
 {
   "name": "vuety",
-  "version": "0.0.1",
+  "version": "2.0.0-beta.1",
   "description": "TypeScript decorators for Vue.js",
   "main": "dist/index.js",
   "scripts": {
