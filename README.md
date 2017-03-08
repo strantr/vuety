@@ -5,8 +5,6 @@ A set of TypeScript decorators allowing you to write your Vue.js components in a
 
 ## Installation
 
-TODO: Publish to npm
-
 `npm install vuety --save`
 
 ## Usage
