@@ -11,7 +11,6 @@ export function Component(options?: Vue.ComponentOptions<Vue>) {
         const proto = target.prototype as IVuety;
         let instance: Vue | undefined;
         let vuety = proto.$vuety;
-
         if (vuety) {
             const getDefault = (key: string) => {
                 let store = defaultStore.get(target);
@@ -60,6 +59,29 @@ export function Component(options?: Vue.ComponentOptions<Vue>) {
 
             delete proto.$vuety;
         }
+
+        // Loop over each method in the class and see if it needs to be set as a method or computed property
+        Object.getOwnPropertyNames(target.prototype).filter(p => p !== "constructor").forEach(prop => {
+            const descriptor = Object.getOwnPropertyDescriptor(target.prototype, prop);
+            if (descriptor.get || descriptor.set) {
+                delete target.prototype[prop];
+                if (!opts.computed) {
+                    opts.computed = {};
+                }
+                if (descriptor.get === undefined) {
+                    throw new Error("Computed properties must have a getter: " + target.prototype.constructor.name + "." + prop);
+                }
+                opts.computed[prop] = {
+                    get: descriptor.get,
+                    set: descriptor.set
+                };
+            } else {
+                if (!opts.methods) {
+                    opts.methods = {};
+                }
+                opts.methods[prop] = descriptor.value;
+            }
+        });
 
         return (target as any).extend(opts);
     };
