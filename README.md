@@ -17,6 +17,8 @@ A set of TypeScript decorators allowing you to write your Vue.js components in a
 - [Render](#render)
 - [On](#on)
 - [Emit](#emit)
+- [Methods](#methods)
+- [Computed Properties](#computed-properties)
 - [Custom Decorators](#custom-decorators)
 
 ### Component
@@ -165,6 +167,36 @@ class MyComponent extends Vue {
     @Emit protected event2() {
         console.log("before event is emitted");
         return () => console.log("after event is emitted");
+    }
+}
+````
+
+### Methods
+All methods on the component will automatically be exposed on the Vue object, you do not need to do anything special in order to use them, they will automatically be bound to the component instance.
+
+**Example:**
+```typescript
+@Component({...options}) 
+class MyComponent extends Vue {
+    public test() {
+        console.log(this); //instance of MyComponent
+    }
+}
+````
+
+### Computed Properties
+Computed properties are created using getters and setters on the class.  
+*Note: Set only properties are not allowed, there must always be a getter.*
+
+**Example:**
+```typescript
+@Component({...options}) 
+class MyComponent extends Vue {
+    public get test() {
+        return ...;
+    }
+    public set test(value: ...) {
+        ...
     }
 }
 ````
