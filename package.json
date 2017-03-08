@@ -2,7 +2,7 @@
   "name": "vuety",
   "version": "2.0.0-beta.2",
   "description": "TypeScript decorators for Vue.js",
-  "main": "dist/index.js",
+  "main": "dist/bundle.js",
   "scripts": {
     "build": "webpack",
     "prepublish": "npm run build",
