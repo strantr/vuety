@@ -1,35 +1,25 @@
 import * as Vue from "vue";
 import { IVuety, DecoratorFactory } from "./core";
+import { TargetOrEventName, processEventArgs } from "./util";
 
 export function Emit(target: Vue, propertyKey: string): any
-export function Emit(eventName?: string): DecoratorFactory<string>;
+export function Emit(eventName?: string, target?: (v: Vue) => Vue): DecoratorFactory<string>;
 export function Emit(target: (v: Vue) => Vue, eventName?: string): DecoratorFactory<string>;
 export function Emit(this: Vue): DecoratorFactory<string> | undefined {
-    function emit(targetOrEventName: string | ((v: Vue) => Vue) | undefined, eventName: string, target: IVuety, propertyKey: string, descriptor: PropertyDescriptor) {
-        let targetFn: (v: Vue) => Vue;
-        if (typeof targetOrEventName === "string") {
-            eventName = targetOrEventName;
-        } else {
-            if (targetOrEventName) {
-                targetFn = targetOrEventName;
-            }
-            if (!eventName) {
-                eventName = propertyKey;
-            }
-        }
-
+    function emit(arg1: TargetOrEventName, arg2: TargetOrEventName, target: IVuety, propertyKey: string, descriptor: PropertyDescriptor) {
+        let r = processEventArgs(arg1, arg2);
         const orig = descriptor.value;
         descriptor.value = function (this: Vue) {
             let target: Vue;
-            if (targetFn) {
-                target = targetFn(this);
+            if (r.targetFn) {
+                target = r.targetFn(this);
             } else {
                 target = this;
             }
             // Call original function first
             let res = orig.apply(this, arguments);
             // Then raise the event
-            target.$emit.apply(target, [eventName, ...Array.from(arguments)]);
+            target.$emit.apply(target, [r.evtName || propertyKey, ...Array.from(arguments)]);
             // Then if the original function supplied a callback, invoke that
             if (typeof res === "function") {
                 res.apply(this, arguments);

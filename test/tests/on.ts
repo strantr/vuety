@@ -68,6 +68,9 @@ export default function () {
                 @On(v => v.$root, "eventName") protected test() {
                     result++;
                 }
+                @On("eventName", v => v.$root) protected test2() {
+                    result++;
+                }
             }
 
             @Component({
@@ -78,7 +81,7 @@ export default function () {
             }) class Root extends Vue {
             }
             await new Root().$mount(document.createElement("div")).$nextTick();
-            expect(result).to.eq(1);
+            expect(result).to.eq(2);
         });
         it("Handlers are bound to the instance", () => {
             let result = 0;

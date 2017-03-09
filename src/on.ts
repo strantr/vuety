@@ -1,31 +1,22 @@
 import * as Vue from "vue";
 import { IVuety, Vuety, DecoratorFactory } from "./core";
+import { TargetOrEventName, processEventArgs } from "./util";
 
 export function On(target: Vue, propertyKey: string): any
-export function On(eventName?: string): DecoratorFactory<string>;
+export function On(eventName?: string, target?: (v: Vue) => Vue, ): DecoratorFactory<string>;
 export function On(target: (v: Vue) => Vue, eventName?: string): DecoratorFactory<string>;
 export function On(this: Vue): DecoratorFactory<string> | undefined {
-    function on(targetOrEventName: string | ((v: Vue) => Vue) | undefined, eventName: string, target: IVuety, propertyKey: string, descriptor: PropertyDescriptor) {
-        let targetFn: (v: Vue) => Vue;
-        if (typeof targetOrEventName === "string") {
-            eventName = targetOrEventName;
-        } else {
-            if (targetOrEventName) {
-                targetFn = targetOrEventName;
-            }
-            if (!eventName) {
-                eventName = propertyKey;
-            }
-        }
+    function on(arg1: TargetOrEventName, arg2: TargetOrEventName, target: IVuety, propertyKey: string, descriptor: PropertyDescriptor) {
         Vuety("On", target)(v => {
+            let r = processEventArgs(arg1, arg2);
             const handler = function (this: Vue) {
                 let target: Vue;
-                if (targetFn) {
-                    target = targetFn(this);
+                if (r.targetFn) {
+                    target = r.targetFn(this);
                 } else {
                     target = this;
                 }
-                target.$on(eventName, descriptor.value.bind(this));
+                target.$on(r.evtName || propertyKey, descriptor.value.bind(this));
             };
 
             if (!v.options["beforeCreate"]) {

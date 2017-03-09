@@ -71,15 +71,17 @@ export default function () {
         });
 
         it("Can raise events on target component by name", async () => {
-            let result = false;
+            let result = 0;
 
             @Component({
                 created() {
                     this["eventName"]();
+                    this["eventName2"]();
                 },
                 template: "<div/>"
             }) class A extends Vue {
                 @Emit(v => v.$root, "testEvent") protected eventName() { }
+                @Emit("testEvent", v => v.$root) protected eventName2() { }
             }
 
             @Component({
@@ -90,12 +92,12 @@ export default function () {
             }) class Root extends Vue {
                 @Lifecycle protected beforeCreate() {
                     this.$on("testEvent", () => {
-                        result = true;
+                        result += 1;
                     });
                 }
             }
             await new Root().$mount(document.createElement("div")).$nextTick();
-            expect(result).to.eq(true);
+            expect(result).to.eq(2);
         });
 
         it("Invokes method body before the event", async () => {
