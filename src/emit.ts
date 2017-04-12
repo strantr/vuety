@@ -1,4 +1,4 @@
-import * as Vue from "vue";
+import Vue from "vue";
 import { IVuety, DecoratorFactory } from "./core";
 import { TargetOrEventName, processEventArgs } from "./util";
 

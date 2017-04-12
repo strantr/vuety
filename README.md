@@ -28,7 +28,7 @@ This class should extend the Vue object.
 **Example:**
 ```typescript
 import { Component } from "vuety";
-import * as Vue from "vue";
+import Vue from "vue";
 @Component({...options}) 
 class MyComponent extends Vue {
     // Component members

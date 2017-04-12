@@ -1,4 +1,4 @@
-import * as Vue from "vue";
+import Vue from "vue";
 import { IVuety, Vuety, DecoratorFactory } from "./core";
 
 export declare type RenderFunction = (createElement: Vue.CreateElement) => Vue.VNode;

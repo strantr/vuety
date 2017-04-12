@@ -1,4 +1,4 @@
-import * as Vue from "vue";
+import Vue from "vue";
 
 export type TargetOrEventName = string | ((v: Vue) => Vue) | undefined;
 

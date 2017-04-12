@@ -1,4 +1,4 @@
-import * as Vue from "vue";
+import Vue from "vue";
 import { IVuety, Vuety, DecoratorFactory } from "./core";
 
 export function Data(target: Vue, propertyKey: string): any

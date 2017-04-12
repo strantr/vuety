@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { Component, Lifecycle } from "../../src";
-import * as Vue from "vue";
+import Vue from "vue";
 
 export default function () {
 

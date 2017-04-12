@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { Component, Prop, Data } from "../../src";
-import * as Vue from "vue";
+import Vue from "vue";
 
 export default function () {
     Prop.warn = false;

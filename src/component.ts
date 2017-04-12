@@ -1,4 +1,4 @@
-import * as Vue from "vue";
+import Vue from "vue";
 import { IVuety } from "./core";
 
 export type Newable<T> = { new (): T };

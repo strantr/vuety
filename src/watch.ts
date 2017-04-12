@@ -1,4 +1,4 @@
-import * as Vue from "vue";
+import Vue from "vue";
 import { Vuety } from "./core";
 
 export type WatchHandler<T> = (newValue: T, oldValue: T, propertyKey: string) => void
