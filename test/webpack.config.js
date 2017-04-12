@@ -1,9 +1,10 @@
+const path = require("path");
 module.exports = {
     entry: {
         test: "./test/index.ts"
     },
     output: {
-        path: "./test",
+        path: path.resolve("./test"),
         filename: "bundle.js"
     },
     resolve: {

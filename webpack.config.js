@@ -1,9 +1,10 @@
+const path = require("path");
 module.exports = {
     entry: {
         dist: "./src/index.ts"
     },
     output: {
-        path: "./dist",
+        path: path.resolve("./dist"),
         filename: "bundle.js",
         libraryTarget: "commonjs2"
     },
