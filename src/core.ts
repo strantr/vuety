@@ -14,6 +14,12 @@ export interface VuetyCallbackData {
     getDefault: (key: string) => any;
     storeData: (key: string, factory: () => any) => void;
     proto: any;
+    done: (cb: (data: VuetyDoneCallbackData) => void) => void;
+}
+
+export interface VuetyDoneCallbackData {
+    options: Vue.ComponentOptions<Vue>;
+    proto: any;
 }
 
 export function Vuety(id: string, target: IVuety): (callback: VuetyCallback) => void {

@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { IVuety } from "./core";
+import { IVuety, VuetyDoneCallbackData } from "./core";
 
 export type Newable<T> = { new (): T };
 
@@ -30,6 +30,7 @@ export function Component(options?: Vue.ComponentOptions<Vue>) {
             };
 
             const keys = Object.keys(vuety);
+            const doneCallbacks: { [k: string]: (data: VuetyDoneCallbackData) => void } = {};
             let data: { [k: string]: any } | undefined = undefined;
             for (let i = 0; i < keys.length; i++) {
                 const callbacks = vuety[keys[i]];
@@ -41,7 +42,12 @@ export function Component(options?: Vue.ComponentOptions<Vue>) {
                             if (!data) data = {};
                             data[key] = factory;
                         },
-                        proto
+                        proto,
+                        done(cb) {
+                            if (!(keys[i] in doneCallbacks)) {
+                                doneCallbacks[keys[i]] = cb;
+                            }
+                        }
                     });
                 }
             }
@@ -56,6 +62,13 @@ export function Component(options?: Vue.ComponentOptions<Vue>) {
                     return r;
                 };
             }
+
+            Object.keys(doneCallbacks).forEach(decoratorId => {
+                doneCallbacks[decoratorId]({
+                    proto,
+                    options: opts
+                });
+            });
 
             delete proto.$vuety;
         }

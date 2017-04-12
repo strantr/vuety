@@ -7,3 +7,5 @@ export * from "./render";
 export * from "./watch";
 export * from "./on";
 export * from "./emit";
+export * from "./provide";
+export * from "./inject";
