@@ -1,4 +1,4 @@
-/*import component from "./tests/component"; component();
+import component from "./tests/component"; component();
 import data from "./tests/data"; data();
 import lifecycle from "./tests/lifecycle"; lifecycle();
 import prop from "./tests/prop"; prop();
@@ -7,6 +7,6 @@ import watch from "./tests/watch"; watch();
 import on from "./tests/on"; on();
 import emit from "./tests/emit"; methods();
 import methods from "./tests/methods"; emit();
-import computed from "./tests/computed"; computed();*/
+import computed from "./tests/computed"; computed();
 import provide from "./tests/provide"; provide();
 import inject from "./tests/inject"; inject();
