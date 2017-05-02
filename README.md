@@ -19,11 +19,14 @@ A set of TypeScript decorators allowing you to write your Vue.js components in a
 - [Emit](#emit)
 - [Methods](#methods)
 - [Computed Properties](#computed-properties)
+- [Provide](#provide)
+- [Inject](#inject)
 - [Custom Decorators](#custom-decorators)
 
 ### Component
 In order to create a new component you should create a class definition and decorate it with the `@Component` decorator.  
 This class should extend the Vue object.  
+If no name is provided the name of the class will be passed as the "name" option to the Vue constructor.
 
 **Example:**
 ```typescript
@@ -198,6 +201,38 @@ class MyComponent extends Vue {
     public set test(value: ...) {
         ...
     }
+}
+````
+
+### Provide
+[Provided dependencies](https://vuejs.org/v2/api/#provide-inject) can be specified using the `@Provide` decorator.
+The decorator is valid on [@Prop](#prop), [@Data](#data) and [Computed](#computed-properties) members.
+Fields can be aliased by passing a name to the Provide decorator, the when injecting the dependency use the aliased name.
+
+**Example:**
+```typescript
+@Component({...options}) 
+class Ancestor extends Vue {
+    @Provide public get test() {
+        return ...;
+    }
+    @Provide @Prop public prop : string;
+    @Provide("alias") @Data public data : string; // Provide a field with a different alias
+}
+````
+
+### Inject
+[Injected dependencies](https://vuejs.org/v2/api/#provide-inject) can be specified using the `@Inject` decorator.
+The decorator should be used on standard class fields, however you may also use them on `@Prop` members in order to allow the property to be specified overriding the provided value.
+Fields can be aliased by passing a name to the Provide decorator, the when injecting the dependency use the aliased name.
+
+**Example:**
+```typescript
+@Component({...options}) 
+class Descendant extends Vue {
+    @Inject test() : {};
+    @Inject @Prop prop: string; // Allow the provided dependency to be overridden by a prop
+    @Inject("alias") @Data public data : string; // Inject a field from a dependency with a different name
 }
 ````
 
