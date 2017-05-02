@@ -218,6 +218,9 @@ class Ancestor extends Vue {
     }
     @Provide @Prop public prop : string;
     @Provide("alias") @Data public data : string; // Provide a field with a different alias
+    
+    // Inject a field, or allow to be specified via a Prop and then re-provide that value
+    @Provide @Inject @Prop public thing : {};
 }
 ````
 
