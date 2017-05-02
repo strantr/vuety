@@ -95,6 +95,8 @@ export function Component(options?: Vue.ComponentOptions<Vue>) {
                 opts.methods[prop] = descriptor.value;
             }
         });
+        
+        if(!opts.name && target.name) opts.name = target.name;
 
         return (target as any).extend(opts);
     };
