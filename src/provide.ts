@@ -16,8 +16,6 @@ export function Provide(this: Vue): DecoratorFactory<string> | undefined {
                     return provide;
                 }
             });
-
-            delete v.proto[propertyKey];
         });
     }
 
