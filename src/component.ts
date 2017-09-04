@@ -1,7 +1,7 @@
 import Vue from "vue";
 import { IVuety, VuetyDoneCallbackData } from "./core";
 
-export type Newable<T> = { new (): T };
+export type Newable<T> = { new(): T };
 
 const defaultStore = new Map<Newable<Vue>, { [k: string]: any }>();
 
@@ -95,8 +95,8 @@ export function Component(options?: Vue.ComponentOptions<Vue>) {
                 opts.methods[prop] = descriptor.value;
             }
         });
-        
-        if(!opts.name && target.name) opts.name = target.name;
+
+        if (!opts.name && target.name) opts.name = target.name;
 
         return (target as any).extend(opts);
     };

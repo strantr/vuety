@@ -1,9 +1,9 @@
 import * as Vue from "vue";
-import { IVuety, Vuety, DecoratorFactory } from "./core";
+import { IVuety, Vuety } from "./core";
 
 export function Inject(target: Vue, propertyKey: string): any
-export function Inject(dependencyName?: string): DecoratorFactory<string>;
-export function Inject(this: Vue): DecoratorFactory<string> | undefined {
+export function Inject(dependencyName?: string): any;
+export function Inject(this: Vue): any {
     function inject(dependencyName: string | undefined, target: IVuety, propertyKey: string, descriptor: PropertyDescriptor) {
         Vuety("Inject", target)(v => {
             if (!v.options.inject) {

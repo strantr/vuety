@@ -1,6 +1,5 @@
 import Vue from "vue";
 
-export type DecoratorFactory<TKey extends string> = (target: Vue, propertyKey: TKey) => any;
 export type VuetyCallback = (v: VuetyCallbackData) => void;
 
 export interface IVuety extends Vue {

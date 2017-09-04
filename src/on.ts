@@ -1,11 +1,11 @@
 import Vue from "vue";
-import { IVuety, Vuety, DecoratorFactory } from "./core";
+import { IVuety, Vuety } from "./core";
 import { TargetOrEventName, processEventArgs } from "./util";
 
 export function On(target: Vue, propertyKey: string): any
-export function On(eventName?: string, target?: (v: Vue) => Vue, ): DecoratorFactory<string>;
-export function On(target: (v: Vue) => Vue, eventName?: string): DecoratorFactory<string>;
-export function On(this: Vue): DecoratorFactory<string> | undefined {
+export function On(eventName?: string, target?: (v: Vue) => Vue, ): any;
+export function On(target: (v: Vue) => Vue, eventName?: string): any;
+export function On(this: Vue): any | undefined {
     function on(arg1: TargetOrEventName, arg2: TargetOrEventName, target: IVuety, propertyKey: string, descriptor: PropertyDescriptor) {
         Vuety("On", target)(v => {
             let r = processEventArgs(arg1, arg2);

@@ -1,9 +1,9 @@
 import * as Vue from "vue";
-import { IVuety, Vuety, DecoratorFactory } from "./core";
+import { IVuety, Vuety } from "./core";
 
 export function Provide(target: Vue, propertyKey: string): any
-export function Provide(dependencyName?: string): DecoratorFactory<string>;
-export function Provide(this: Vue): DecoratorFactory<string> | undefined {
+export function Provide(dependencyName?: string): any;
+export function Provide(this: Vue): any {
     function provide(dependencyName: string | undefined, target: IVuety, propertyKey: string, descriptor: PropertyDescriptor) {
         Vuety("Provide", target)(v => {
             const provided: { [k: string]: string } = v.proto["$vuety-provide"] = v.proto["$vuety-provide"] || {};

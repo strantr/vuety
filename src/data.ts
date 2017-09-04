@@ -1,9 +1,9 @@
 import Vue from "vue";
-import { IVuety, Vuety, DecoratorFactory } from "./core";
+import { IVuety, Vuety } from "./core";
 
 export function Data(target: Vue, propertyKey: string): any
-export function Data(factory?: () => any): DecoratorFactory<string>;
-export function Data(this: Vue): DecoratorFactory<string> | undefined {
+export function Data(factory?: () => any): any;
+export function Data(this: Vue): any | undefined {
     function data(factory: () => any | undefined, target: IVuety, propertyKey: string) {
         Vuety("Data", target)(v => {
             if (!factory) {
