@@ -25,6 +25,25 @@ export function Component(options?: Vue.ComponentOptions<Vue>) {
 					instance = new target();
 				}
 				store[key] = instance[key];
+				const t = typeof store[key];
+				switch (t) {
+					case "string":
+					case "number":
+					case "boolean":
+					case "undefined":
+						break;
+					case "object":
+						if (store[key] === null) {
+							break;
+						}
+					default:
+						if (!Vue.config.silent) {
+							console.warn(
+								"[vuety] avoid using non-primative objects via class assignment [#10]",
+								opts.name || "(unnamed component)" + "." + key + " -> " + t
+							);
+						}
+				}
 
 				return store[key];
 			};
