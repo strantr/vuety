@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { IVuety, Vuety, DecoratorFactory } from "./core";
+import { IVuety, Vuety } from "./core";
 
 export type LifecycleName =
     "beforeCreate" | "created" |
@@ -8,9 +8,9 @@ export type LifecycleName =
     "beforeUpdate" | "updated" |
     "activated" | "deactivated";
 
-export function Lifecycle(target: Vue, propertyKey: LifecycleName, descriptor: PropertyDescriptor): DecoratorFactory<LifecycleName>
-export function Lifecycle(): DecoratorFactory<LifecycleName>
-export function Lifecycle(this: Vue): DecoratorFactory<LifecycleName> | undefined {
+export function Lifecycle(target: Vue, propertyKey: LifecycleName, descriptor: PropertyDescriptor): any
+export function Lifecycle(): any
+export function Lifecycle(this: Vue): any {
     function lifecycle(target: IVuety, propertyKey: LifecycleName, descriptor: PropertyDescriptor) {
         Vuety("Lifecycle", target)(v => {
             if (!v.options[propertyKey]) {

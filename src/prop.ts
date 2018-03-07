@@ -1,10 +1,10 @@
 import Vue from "vue";
-import { IVuety, Vuety, DecoratorFactory } from "./core";
+import { IVuety, Vuety } from "./core";
 
 
 export function Prop(target: Vue, propertyKey: string): any
-export function Prop(options?: Vue.PropOptions): DecoratorFactory<string>;
-export function Prop(this: Vue): DecoratorFactory<string> | undefined {
+export function Prop(options?: Vue.PropOptions): any;
+export function Prop(this: Vue): any {
     function prop(options: Vue.PropOptions, target: IVuety, propertyKey: string) {
         Vuety("Prop", target)(v => {
             if (!options) {

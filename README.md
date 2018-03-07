@@ -1,5 +1,5 @@
 # Vuety
-TypeScript decorators for [Vue.js](https://vuejs.org/) 2.0. 
+TypeScript decorators for [Vue.js](https://vuejs.org/) 2.*. 
 
 A set of TypeScript decorators allowing you to write your Vue.js components in a type-safe and more object-oriented manner.
 
