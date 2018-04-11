@@ -15,19 +15,15 @@ export function On(this: Vue, ...a: any[]): DecoratorFactory<string> | undefined
 	) {
 		Vuety("On", target)(v => {
 			let r = processEventArgs(arg1, arg2);
-			let target: Vue;
 			const handler = function(this: Vue) {
-				if (r.targetFn) {
-					target = r.targetFn(this);
-				} else {
-					target = this;
-				}
-				target.$on(r.evtName || propertyKey, descriptor.value.bind(this));
+				const target: Vue = r.targetFn ? r.targetFn(this) : this;
+				const listener = descriptor.value.bind(this);
+				target.$on(r.evtName || propertyKey, listener);
+				this.$on("hook:destroyed", () => {
+					target.$off(r.evtName || propertyKey, listener);
+				});
 			};
 			merge("beforeCreate", v.options as any, handler);
-			merge("destroyed", v.options as any, function(this: Vue) {
-				target.$off(r.evtName || propertyKey, descriptor.value.bind(this));
-			});
 		});
 	}
 

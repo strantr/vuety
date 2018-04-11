@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { Component, On } from "../../src";
+import { Component, On, Data } from "../../src";
 import Vue from "vue";
 
 export default function() {
@@ -135,8 +135,8 @@ export default function() {
 			@Component({
 				template: "<div/>",
 			})
-			class A extends Vue {
-				@On(v => v.$root)
+			class B extends Vue {
+				@On(v => v.$parent)
 				protected test() {
 					result++;
 				}
@@ -144,19 +144,31 @@ export default function() {
 
 			@Component({
 				components: {
-					child: A,
+					test: B,
 				},
-				template: "<child/>",
+				template: "<div><test/><test/></div>",
 			})
-			class Root extends Vue {}
+			class A extends Vue {}
+
+			@Component({
+				components: {
+					test: A,
+				},
+				template: "<div><test ref='test' v-if='show'/></div>",
+			})
+			class Root extends Vue {
+				@Data public show: boolean = true;
+			}
+
 			const root = new Root();
-			expect(Object.keys(root["_events"]).length).to.eq(0);
 			await root.$mount(document.createElement("div")).$nextTick();
-			expect(Object.keys(root["_events"]).length).to.eq(1);
-			root.$emit("test");
-			expect(result).to.eq(1);
-			root.$destroy();
-			expect(Object.keys(root["_events"]).length).to.eq(0);
+			const test = root.$refs["test"] as A;
+			expect(test["_events"].test.length).to.eq(2);
+			test.$emit("test");
+			expect(result).to.eq(2);
+			root.show = false;
+			await root.$nextTick();
+			expect(Object.keys(test["_events"]).length).to.eq(0);
 		});
 	});
 }
