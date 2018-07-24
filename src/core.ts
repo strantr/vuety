@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { ComponentOptions } from "vue";
 
 export type DecoratorFactory<TKey extends string> = (target: Vue, propertyKey: TKey) => any;
 export type VuetyCallback = (v: VuetyCallbackData) => void;
@@ -10,7 +10,7 @@ export interface IVuety extends Vue {
 }
 
 export interface VuetyCallbackData {
-	options: Vue.ComponentOptions<Vue>;
+	options: ComponentOptions<Vue>;
 	getDefault: (key: string) => any;
 	storeData: (key: string, factory: () => any) => void;
 	proto: any;
@@ -18,7 +18,7 @@ export interface VuetyCallbackData {
 }
 
 export interface VuetyDoneCallbackData {
-	options: Vue.ComponentOptions<Vue>;
+	options: ComponentOptions<Vue>;
 	proto: any;
 }
 

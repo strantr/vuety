@@ -1,11 +1,11 @@
-import Vue from "vue";
+import Vue, { ComponentOptions } from "vue";
 import { IVuety, VuetyDoneCallbackData } from "./core";
 
 export type Newable<T> = { new (): T };
 
 const defaultStore = new Map<Newable<Vue>, { [k: string]: any }>();
 
-export function Component(options?: Vue.ComponentOptions<Vue>) {
+export function Component(options?: ComponentOptions<Vue>) {
 	const opts = options || {};
 	return function(target: Newable<Vue>) {
 		const proto = target.prototype as IVuety;

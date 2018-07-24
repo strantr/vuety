@@ -7,7 +7,7 @@ export default function() {
 		it("Can handle events by naming convention", () => {
 			let result = 0;
 			@Component({
-				created() {
+				created(this: Vue) {
 					this.$emit("eventName");
 				},
 			})
@@ -23,7 +23,7 @@ export default function() {
 		it("Can handle events by name", () => {
 			let result = 0;
 			@Component({
-				created() {
+				created(this: Vue) {
 					this.$emit("eventName");
 				},
 			})
@@ -40,7 +40,7 @@ export default function() {
 			let result = 0;
 
 			@Component({
-				created() {
+				created(this: Vue) {
 					this.$root.$emit("eventName");
 				},
 				template: "<div/>",
@@ -66,7 +66,7 @@ export default function() {
 			let result = 0;
 
 			@Component({
-				created() {
+				created(this: Vue) {
 					this.$root.$emit("eventName");
 				},
 				template: "<div/>",
@@ -95,7 +95,7 @@ export default function() {
 		it("Handlers are bound to the instance", () => {
 			let result = 0;
 			@Component({
-				created() {
+				created(this: Vue) {
 					this.$emit("eventName");
 				},
 				props: {
@@ -116,7 +116,7 @@ export default function() {
 		it("Can be passed arguments", () => {
 			let result = "";
 			@Component({
-				created() {
+				created(this: Vue) {
 					this.$emit("eventName", "hello", { complex: "world" });
 				},
 			})
